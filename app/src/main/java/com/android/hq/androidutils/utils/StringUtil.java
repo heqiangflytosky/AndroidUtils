@@ -13,7 +13,7 @@ public class StringUtil {
      * @param para
      * @return
      */
-    public String getXorEncryption(String para){
+    public static String getXorEncryption(String para){
         int key = 0x10;
         char[] charArray = para.toCharArray();
         for(int i =0;i<charArray.length;i++){

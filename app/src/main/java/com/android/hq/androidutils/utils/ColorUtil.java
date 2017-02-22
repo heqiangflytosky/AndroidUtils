@@ -15,7 +15,7 @@ public class ColorUtil {
      * @param bg
      * @return
      */
-    public int blendColor(int fg, int bg) {
+    public static int blendColor(int fg, int bg) {
         int scr = Color.red(fg);
         int scg = Color.green(fg);
         int scb = Color.blue(fg);

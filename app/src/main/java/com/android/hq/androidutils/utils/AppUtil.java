@@ -84,7 +84,7 @@ public class AppUtil {
     /**
      * 获取系统已经安装应用信息
      */
-    public void loadAllApps(Context context){
+    public static void loadAllApps(Context context){
         final PackageManager packageManager = context.getPackageManager();
         final Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);

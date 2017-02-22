@@ -15,6 +15,7 @@ import java.security.MessageDigest;
  * Created by heqiang on 17-2-5.
  *
  * Java实现对文件的复制、删除
+ * 计算目录大小
  * 获取文件MD5功能
  */
 public class FileUtil {
@@ -69,6 +70,32 @@ public class FileUtil {
 			}
 		}
 		return file.delete();
+	}
+
+	/**
+	 * get dir size
+	 *
+	 * @param file
+	 * @return M
+     */
+	public static double getDirSize(File file) {
+		if(!file.exists()) {
+			Log.w(TAG, file.toString() + " may not exists !");
+			return 0.0D;
+		} else if(!file.isDirectory()) {
+			double size = (double)file.length() / 1024.0D / 1024.0D;
+			return size;
+		} else {
+			File[] files = file.listFiles();
+			double size = 0.0D;
+			int length = files.length;
+
+			for(int i = 0; i < length; ++i) {
+				File f = files[i];
+				size += getDirSize(f);
+			}
+			return size;
+		}
 	}
 
 	/**
