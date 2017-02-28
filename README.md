@@ -35,3 +35,6 @@
 
 ## StringUtil
  - 对字符串异或加密
+
+## OomCrashHandler
+使用CrashHandler来获取应用的crash信息
