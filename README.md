@@ -38,3 +38,9 @@
 
 ## OomCrashHandler
 使用CrashHandler来获取应用的crash信息
+
+## NetWorkObserver
+网络变化监听器
+
+## BackgroundHandler
+执行后台任务的线程池和Handler
