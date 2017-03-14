@@ -44,3 +44,6 @@
 
 ## BackgroundHandler
 执行后台任务的线程池和Handler
+
+## SizeObserverLinearLayout
+布局大小变化监听器，可以用作根布局来监听键盘弹起等导致的大小变化
