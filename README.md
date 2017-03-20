@@ -11,6 +11,8 @@
  - 获得当前应用程序的版本号
  - 通过包名启动App
  - 获取系统已经安装应用信息
+ - 通过Intent启动Activity
+ - 通过url启动Activity
 
 ## ColorUtil
  - 对两种颜色进行混合

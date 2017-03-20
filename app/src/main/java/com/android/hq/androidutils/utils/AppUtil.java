@@ -1,13 +1,17 @@
 package com.android.hq.androidutils.utils;
 
+import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.util.Log;
 
+import java.net.URISyntaxException;
 import java.util.List;
 
 /**
@@ -16,6 +20,9 @@ import java.util.List;
  * 获得当前应用程序的名称
  * 获得当前应用程序的版本号
  * 通过包名启动App
+ * 获取系统已经安装应用信息
+ * 通过Intent启动Activity
+ * 通过url启动Activity
  */
 
 public class AppUtil {
@@ -103,5 +110,58 @@ public class AppUtil {
 //        for (PackageInfo info : apps) {
 //            Log.e("App","name = " + info.applicationInfo.packageName+", label = " + info.applicationInfo.loadLabel(packageManager));
 //        }
+    }
+
+    /**
+     *  通过Intent启动Activity
+     */
+    public static boolean startAppByIntent(Activity activity, Intent intent) {
+        try {
+            activity.startActivityIfNeeded(intent, -1);
+            return true;
+        } catch (ActivityNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (SecurityException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * 通过url启动Activity
+     */
+
+    public static boolean startActivityByUrl(Activity activity){
+        //启动电话
+        //String url = "tel:123456789";
+        //如果安装了唯品会应用，启动唯品会
+        String url = "vipshop://goHome?f=fx&tra_from=tra%3Awvpeo8om%3Anm5fj2y6%3Aq15uwfdz%3Agtpgmchu%3A%3A4gl0mmyi%3A%3A3739c1c4dd4d4e78889982e23609e056";
+        Intent intent = null;
+        try {
+            intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        if(activity.getPackageManager().resolveActivity(intent, 0) != null){
+            return startAppByIntent(activity, intent);
+        }else{
+            String packagename = intent.getPackage();
+            if (packagename != null) {
+                intent = new Intent(Intent.ACTION_VIEW, Uri
+                        .parse("market://search?q=pname:" + packagename));
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                try {
+                    activity.startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 }
