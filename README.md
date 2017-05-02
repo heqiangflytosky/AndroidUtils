@@ -5,6 +5,10 @@
  - Java实现AES加密
  - Java实现AES解密
 
+## ActivityUtil
+ - 锁定当前屏幕方向禁止旋转
+ - 解除屏幕方向锁定
+
 ## AppUtil
 一些针对Android App的常用操作
  - 获得当前应用程序的名称
