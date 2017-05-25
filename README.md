@@ -53,3 +53,6 @@
 
 ## SizeObserverLinearLayout
 布局大小变化监听器，可以用作根布局来监听键盘弹起等导致的大小变化
+
+## NoScrollViewPager
+可以禁止左右滑动的ViewPager
