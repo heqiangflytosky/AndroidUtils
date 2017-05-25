@@ -8,6 +8,7 @@
 ## ActivityUtil
  - 锁定当前屏幕方向禁止旋转
  - 解除屏幕方向锁定
+ - 显示或者隐藏状态栏
 
 ## AppUtil
 一些针对Android App的常用操作

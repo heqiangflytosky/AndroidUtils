@@ -5,13 +5,15 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.view.Display;
 import android.view.Surface;
+import android.view.Window;
+import android.view.WindowManager;
 
 /**
  * Created by heqiang on 17-5-2.
  *
  * 锁定当前屏幕方向禁止旋转
  * 解除屏幕方向锁定
- *
+ * 显示或者隐藏状态栏
  */
 
 public class ActivityUtil {
@@ -62,5 +64,19 @@ public class ActivityUtil {
             indexOffset = 1;
         }
         return oriMap[(d.getRotation() + indexOffset) % 4];
+    }
+
+    private void showStatusBar(boolean show){
+        Window window = mActivity.getWindow();
+        if (null != window) {
+            WindowManager.LayoutParams winParams = window.getAttributes();
+            final int bits = WindowManager.LayoutParams.FLAG_FULLSCREEN;
+            if (show) {
+                winParams.flags &= ~bits;
+            } else {
+                winParams.flags |= bits;
+            }
+            window.setAttributes(winParams);
+        }
     }
 }
