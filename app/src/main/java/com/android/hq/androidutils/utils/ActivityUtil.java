@@ -3,10 +3,15 @@ package com.android.hq.androidutils.utils;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.util.DisplayMetrics;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.Surface;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.android.hq.androidutils.R;
 
 /**
  * Created by heqiang on 17-5-2.
@@ -14,11 +19,14 @@ import android.view.WindowManager;
  * 锁定当前屏幕方向禁止旋转
  * 解除屏幕方向锁定
  * 显示或者隐藏状态栏
+ * 修改Activity样式为弹框样式
  */
 
 public class ActivityUtil {
 
     private static Activity mActivity;
+    public static final double SMALL_WIN_H_SCALE = 0.66796875;
+    public static final double SMALL_WIN_W_SCALE = 0.71875;
 
     public static void init(Activity activity){
         mActivity = activity;
@@ -66,7 +74,7 @@ public class ActivityUtil {
         return oriMap[(d.getRotation() + indexOffset) % 4];
     }
 
-    private void showStatusBar(boolean show){
+    public static void showStatusBar(boolean show){
         Window window = mActivity.getWindow();
         if (null != window) {
             WindowManager.LayoutParams winParams = window.getAttributes();
@@ -77,6 +85,65 @@ public class ActivityUtil {
                 winParams.flags |= bits;
             }
             window.setAttributes(winParams);
+        }
+    }
+
+    /**
+     * 修改Activity为弹框样式
+     * @param activity
+     */
+    public static void changeActivitySize(Activity activity) {
+        //设置Activity的window参数
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        activity.setFinishOnTouchOutside(true);
+        //设置暗度
+        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        layoutParams.copyFrom(activity.getWindow().getAttributes());
+        layoutParams.gravity = Gravity.CENTER;
+        DisplayMetrics displayMetrics = activity.getResources().getDisplayMetrics();
+        //layoutParams.x = 216;//px
+        layoutParams.width = (int) (displayMetrics.widthPixels * SMALL_WIN_W_SCALE);//px
+        layoutParams.height = (int) (displayMetrics.heightPixels * SMALL_WIN_H_SCALE);//px
+        //设置暗度
+        layoutParams.dimAmount = 0.7f;
+        layoutParams.alpha = 1.0f;
+        activity.getWindow().setAttributes(layoutParams);
+        activity.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        View view = activity.getWindow().getDecorView();
+        if(view != null) {
+            view.setBackgroundResource(R.drawable.dialog_activity_bg);
+        }
+    }
+
+    /**
+     * 修改Activity为弹框样式,强制竖屏模式显示.
+     * @param activity
+     */
+    public static void changeActivitySizeFocusPortrait(Activity activity) {
+        //设置Activity的window参数
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        activity.setFinishOnTouchOutside(true);
+        //设置暗度
+        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        layoutParams.copyFrom(activity.getWindow().getAttributes());
+        layoutParams.gravity = Gravity.CENTER;
+        DisplayMetrics displayMetrics = activity.getResources().getDisplayMetrics();
+        //layoutParams.x = 216;//px
+        if(displayMetrics.widthPixels > displayMetrics.heightPixels){
+            layoutParams.width = (int) (displayMetrics.heightPixels * SMALL_WIN_W_SCALE);//px
+            layoutParams.height = (int) (displayMetrics.widthPixels * SMALL_WIN_H_SCALE);//px
+        }else{
+            layoutParams.width = (int) (displayMetrics.widthPixels * SMALL_WIN_W_SCALE);//px
+            layoutParams.height = (int) (displayMetrics.heightPixels * SMALL_WIN_H_SCALE);//px
+        }
+        //设置暗度
+        layoutParams.dimAmount = 0.7f;
+        layoutParams.alpha = 1.0f;
+        activity.getWindow().setAttributes(layoutParams);
+        activity.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        View view = activity.getWindow().getDecorView();
+        if(view != null) {
+            view.setBackgroundResource(R.drawable.dialog_activity_bg);
         }
     }
 }

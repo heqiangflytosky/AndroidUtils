@@ -7,6 +7,7 @@ import android.content.Context;
  *
  * dp 转成为 px
  * px(像素) 转成为 dp
+ * sp 转成 px
  */
 public class DensityUtil {
 
@@ -24,5 +25,10 @@ public class DensityUtil {
     public static int px2dip(Context context, float pxValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
+    }
+
+    public static float sp2px(Context context, float sp) {
+        final float scale = context.getResources().getDisplayMetrics().scaledDensity;
+        return sp * scale;
     }
 }

@@ -3,13 +3,17 @@ package com.android.hq.androidutils.utils;
 
 import android.util.Log;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigInteger;
 import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 /**
  * Created by heqiang on 17-2-5.
@@ -17,6 +21,8 @@ import java.security.MessageDigest;
  * Java实现对文件的复制、删除
  * 计算目录大小
  * 获取文件MD5功能
+ * 解压zip文件
+ * 获取文件扩展名
  */
 public class FileUtil {
 	private final static String TAG = "FileUtil";
@@ -131,5 +137,61 @@ public class FileUtil {
 		}
 		BigInteger bigInt = new BigInteger(digest.digest());
 		return bigInt.toString();
+	}
+
+	public static boolean unZip(File zipFile, File targetDirectory) {
+		Log.d(TAG, "unzip: " + zipFile.getAbsolutePath() + ", " + targetDirectory.getAbsolutePath());
+		InputStream is;
+		ZipInputStream zis;
+		try {
+			String filename;
+			is = new FileInputStream(zipFile);
+			zis = new ZipInputStream(new BufferedInputStream(is));
+			ZipEntry ze;
+			byte[] buffer = new byte[1024];
+			int count;
+
+			while ((ze = zis.getNextEntry()) != null) {
+				filename = ze.getName();
+				Log.d(TAG, "unzip entry: " + filename);
+				if (ze.isDirectory()) {
+					File directory = new File(targetDirectory, filename);
+					directory.mkdirs();
+					continue;
+				}
+
+				File targetFile = new File(targetDirectory, filename);
+				File targetParentFile = targetFile.getParentFile();
+				if (!targetParentFile.exists()) {
+					targetParentFile.mkdirs();
+				}
+
+				FileOutputStream fos = new FileOutputStream(targetFile);
+
+				while ((count = zis.read(buffer)) != -1) {
+					fos.write(buffer, 0, count);
+				}
+
+				fos.close();
+				zis.closeEntry();
+			}
+
+			zis.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+
+		return true;
+	}
+
+	public static String getFileExtension(File file) {
+		String name = file.getName();
+		int lastDotIndex = name.lastIndexOf('.');
+		if (lastDotIndex >= 0) {
+			return name.substring(lastDotIndex);
+		} else {
+			return "";
+		}
 	}
 }

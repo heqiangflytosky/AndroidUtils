@@ -14,6 +14,8 @@ import java.util.Date;
 
 /**
  * Created by heqiang on 16-10-26.
+ *
+ * 生成.hprof文件可以用MAT来分析定位是否有内存泄漏等问题
  */
 public class OomCrashHandler implements Thread.UncaughtExceptionHandler {
     final String TAG = "OomCrashHandler";
