@@ -6,6 +6,8 @@ import android.graphics.Color;
  * Created by heqiang on 17-2-6.
  * 对两种颜色进行混合
  * 比较两种颜色
+ * 颜色转换成灰度值
+ * 判断颜色是否偏黑色
  */
 
 public class ColorUtil {
@@ -52,5 +54,30 @@ public class ColorUtil {
         float fgL = 0.2126f * fgR + 0.7152f * fgG + 0.0722f * fgB;
 
         return Math.abs((fgL + 0.05f) / (bgL + 0.05f));
+    }
+
+    /**
+     * 判断颜色是否偏黑色
+     *
+     * @param color 颜色
+     * @param level 级别
+     * @return
+     */
+    public static boolean isBlackColor(int color, int level) {
+        int grey = toGrey(color);
+        return grey < level;
+    }
+
+    /**
+     * 颜色转换成灰度值
+     *
+     * @param rgb 颜色
+     * @return　灰度值
+     */
+    public static int toGrey(int rgb) {
+        int blue = rgb & 0x000000FF;
+        int green = (rgb & 0x0000FF00) >> 8;
+        int red = (rgb & 0x00FF0000) >> 16;
+        return (red * 38 + green * 75 + blue * 15) >> 7;
     }
 }
