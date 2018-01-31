@@ -76,3 +76,9 @@
 
 ## Base64
 提供Base64的编解码方法
+
+## AppContextUtils
+提供一个全局的获取Application Context的方法
+
+## FileCacheManager
+简单LRU算法实现缓存大小的限制策略
