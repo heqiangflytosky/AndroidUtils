@@ -82,3 +82,8 @@
 
 ## FileCacheManager
 简单LRU算法实现缓存大小的限制策略
+
+## StorageUtil
+
+ - 获取可用存储空间大小
+ - 获取总存储空间大小
