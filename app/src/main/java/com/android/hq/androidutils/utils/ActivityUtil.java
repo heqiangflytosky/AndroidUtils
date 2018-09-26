@@ -1,9 +1,13 @@
 package com.android.hq.androidutils.utils;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.os.Build;
+import android.os.IBinder;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.Surface;
@@ -13,6 +17,8 @@ import android.view.WindowManager;
 
 import com.android.hq.androidutils.R;
 
+import java.lang.reflect.Method;
+
 /**
  * Created by heqiang on 17-5-2.
  *
@@ -20,6 +26,7 @@ import com.android.hq.androidutils.R;
  * 解除屏幕方向锁定
  * 显示或者隐藏状态栏
  * 修改Activity样式为弹框样式
+ * 获取Activity调用方的包名
  */
 
 public class ActivityUtil {
@@ -145,5 +152,32 @@ public class ActivityUtil {
         if(view != null) {
             view.setBackgroundResource(R.drawable.dialog_activity_bg);
         }
+    }
+
+    /**
+     * 获取调用该Activity的应用的包名
+     */
+    public static String getCallingPackage(Activity activity) {
+        Object activityManager;
+        Method getLaunchedFromPackageMethod;
+        Method getActivityTokenMethod;
+        try {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+                Class<?> activityManagerNativeClass = Class.forName("android.app.ActivityManagerNative");
+                Method getDefaultMethod = activityManagerNativeClass.getMethod("getDefault");
+                activityManager = getDefaultMethod.invoke(null);
+            } else {
+                Method getServiceMethod = ActivityManager.class.getMethod("getService");
+                activityManager = getServiceMethod.invoke(null);
+            }
+            getLaunchedFromPackageMethod = activityManager.getClass().getMethod("getLaunchedFromPackage", IBinder.class);
+            getActivityTokenMethod = Activity.class.getMethod("getActivityToken");
+
+            IBinder binder = (IBinder) getActivityTokenMethod.invoke(activity);
+            return (String) getLaunchedFromPackageMethod.invoke(activityManager, binder);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -14,6 +14,7 @@
  - 解除屏幕方向锁定
  - 显示或者隐藏状态栏
  - 修改Activity样式为弹框样式
+ - 获取Activity调用方的包名
 
 ## AppUtil
 一些针对Android App的常用操作

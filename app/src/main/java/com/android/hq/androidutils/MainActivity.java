@@ -2,9 +2,12 @@ package com.android.hq.androidutils;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.android.hq.androidutils.utils.ActivityUtil;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,5 +22,7 @@ public class MainActivity extends AppCompatActivity {
         mWebView.setWebViewClient(new WebViewClient());
         mWebView.setWebChromeClient(new WebChromeClient());
         mWebView.loadUrl("https://github.com/heqiangflytosky/AndroidUtils/");
+
+        Log.e("Test", "Calling package = "+ActivityUtil.getCallingPackage(this));
     }
 }
