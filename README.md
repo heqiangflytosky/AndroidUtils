@@ -92,3 +92,7 @@
 ## UrlUtil
 
  - 对Url进行参数拼接
+
+## ImageUtil
+
+ - 合成两张图片
