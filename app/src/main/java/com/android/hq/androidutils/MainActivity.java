@@ -1,5 +1,6 @@
 package com.android.hq.androidutils;
 
+import android.os.Binder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.android.hq.androidutils.utils.ActivityUtil;
+import com.android.hq.androidutils.utils.AndroidUtil;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,5 +26,9 @@ public class MainActivity extends AppCompatActivity {
         mWebView.loadUrl("https://github.com/heqiangflytosky/AndroidUtils/");
 
         Log.e("Test", "Calling package = "+ActivityUtil.getCallingPackage(this));
+        Log.e("Test", "Calling package 2= "+getCallingPackage());
+        Log.e("Test", "Calling package 3= "+ Binder.getCallingUid());
+        Log.e("Test", "Calling package 4= "+ getPackageManager().getNameForUid(Binder.getCallingUid()));
+        AndroidUtil.getPermissionInfo(this);
     }
 }

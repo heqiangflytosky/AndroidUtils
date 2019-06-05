@@ -1,3 +1,11 @@
-<resources>
+<resources xmlns:xliff="http://schemas.android.com/tools">
     <string name="app_name">AndroidUtils</string>
+
+    <string name="byteShort">B</string>
+    <string name="kilobyteShort">KB</string>
+    <string name="megabyteShort">MB</string>
+    <string name="gigabyteShort">GB</string>
+    <string name="terabyteShort">TB</string>
+    <string name="petabyteShort">PB</string>
+    <string name="fileSizeSuffix"><xliff:g id="NUMBER">%1$s</xliff:g> <xliff:g id="UNIT">%2$s</xliff:g></string>
 </resources>

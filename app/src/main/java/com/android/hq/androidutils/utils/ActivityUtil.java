@@ -156,6 +156,8 @@ public class ActivityUtil {
 
     /**
      * 获取调用该Activity的应用的包名
+     * 为什么不使用Activity提供的getCallingPackage 方法呢？因为调用方智能使用startActivityForResult()，
+     * 而且不能设置Intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)，否则返回为空
      */
     public static String getCallingPackage(Activity activity) {
         Object activityManager;
