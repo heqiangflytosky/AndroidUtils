@@ -1,5 +1,7 @@
 package com.android.hq.androidutils.utils;
 
+import android.app.ActivityManager;
+import android.content.ContentProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -8,18 +10,21 @@ import android.content.pm.PermissionGroupInfo;
 import android.content.pm.PermissionInfo;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Binder;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 
 import java.net.URISyntaxException;
+import java.util.List;
 
 /**
  * Created by heqiang on 17-9-1.
  *
  * 获取应用是否创建桌面快捷方式
  * 获取应用的权限信息：包括权限列表，及其所在的权限分组等
- *
+ * 获取AIDL进程间调用的调用方包名
+ * 获取ContentProvider调用的调用方包名
  */
 
 public class AndroidUtil {
@@ -93,7 +98,29 @@ public class AndroidUtil {
                 }
             }
         }
+    }
 
+    public static String getCallingPackage4Aidl1(Context context) {
+        return context.getPackageManager().getNameForUid(Binder.getCallingUid());
+    }
 
+    public static String getCallingPackage4Aidl2(Context context) {
+        int pid = Binder.getCallingPid();
+        String processName = "";
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        if (activityManager != null) {
+            List<ActivityManager.RunningAppProcessInfo> list = activityManager.getRunningAppProcesses();
+            for (ActivityManager.RunningAppProcessInfo info : list) {
+                if (info.pid == pid) {
+                    processName = info.processName;
+                    break;
+                }
+            }
+        }
+        return processName.trim();
+    }
+
+    public static String getCallingPackage4Provider(ContentProvider provider){
+        return provider.getCallingPackage();
     }
 }
