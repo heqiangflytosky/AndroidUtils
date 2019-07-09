@@ -2,9 +2,11 @@ package com.android.hq.androidutils.utils;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -27,6 +29,7 @@ import java.lang.reflect.Method;
  * 显示或者隐藏状态栏
  * 修改Activity样式为弹框样式
  * 获取Activity调用方的包名
+ * 是否是从任务管理器启动
  */
 
 public class ActivityUtil {
@@ -181,5 +184,10 @@ public class ActivityUtil {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static boolean isStartedFromRecentsTask(Activity activity) {
+        return (activity.getIntent().getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY)
+                == Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY;
     }
 }
