@@ -104,3 +104,8 @@
 ## FormatUtils
 
  - 字节数据格式化，转换为 KB，M，G等
+
+## ThreadUtils
+
+ - 判断是否在主线程
+ - 在主线程运行方法
