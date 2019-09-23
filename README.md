@@ -30,20 +30,24 @@
  - 通过url启动Activity
 
 ## ColorUtil
+
  - 对两种颜色进行混合
  - 比较两种颜色
  - 颜色转换成灰度值
  - 判断颜色是否偏黑色
 
 ## DensityUtil
+
  - dp 转成为 px
  - px(像素) 转成为 dp
  - sp 转成 px
 
 ## DeviceUtil
+
  - 判断设备是否支持闪光灯
 
 ## FileUtil
+
  - 对文件的复制
  - 对文件的删除
  - 计算目录大小
@@ -52,17 +56,22 @@
  - 获取文件扩展名
 
 ## MD5Util
+
  - 获取字符串的MD5值
 
 ## NetWorkUtil
+
  - 检测设备当前网络是否可用
  - 检测当前网络类型(wifi、2g、3g、4g、off、unknown)
 
 ## StringUtil
+
  - 对字符串异或加密
 
-## OomCrashHandler
-使用CrashHandler来获取应用的crash信息
+## CrashHandler
+
+ - 使用CrashHandler来获取应用的crash信息
+ - 解决 FinalizerWatchdogDaemon 线程的 TimeoutException 问题
 
 ## NetWorkObserver
 网络变化监听器
