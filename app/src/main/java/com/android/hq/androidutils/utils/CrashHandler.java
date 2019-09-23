@@ -11,14 +11,16 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Created by heqiang on 16-10-26.
  *
- * 生成.hprof文件可以用MAT来分析定位是否有内存泄漏等问题
+ * 1.OutOfMemoryError 时生成.hprof文件可以用MAT来分析定位是否有内存泄漏等问题
+ * 2.解决 FinalizerWatchdogDaemon 线程的 TimeoutException 问题
  */
-public class OomCrashHandler implements Thread.UncaughtExceptionHandler {
-    final String TAG = "OomCrashHandler";
+public class CrashHandler implements Thread.UncaughtExceptionHandler {
+    final String TAG = "CrashHandler";
     private Thread.UncaughtExceptionHandler mDefaultUncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
     private String mPackageName;
     private int mPid;
@@ -27,20 +29,27 @@ public class OomCrashHandler implements Thread.UncaughtExceptionHandler {
     private static final long ONE_DAY_TIME_IN_MILLISECONDS = 24*60*60*1000;
     private boolean mDumpingHprof;
 
-    OomCrashHandler(String pkgName, int pid) {
+    CrashHandler(String pkgName, int pid) {
         this.mPackageName = pkgName;
         this.mPid = pid;
         this.mDumpingHprof = false;
     }
 
     public void uncaughtException(Thread thread, Throwable throwable) {
+        // 处理 OOM 日志问题
         if(throwable instanceof OutOfMemoryError && !mDumpingHprof) {
-            Log.w(TAG, "OomCrashHandler capture a oom exception !!!");
+            Log.w(TAG, "CrashHandler capture a oom exception !!!");
             if(!dumpHprofData()) {
                 Log.e(TAG, "Aborting ...");
             }else{
                 //uploadExceptionToServer(); // TODO
             }
+        }
+
+        // 忽略 FinalizerWatchdogDaemon 线程的 TimeoutException 问题
+        if (thread != null && "FinalizerWatchdogDaemon".equals(thread.getName()) && throwable instanceof TimeoutException) {
+            Log.e(TAG, "CrashHandler", throwable);
+            return;
         }
 
         if(mDefaultUncaughtExceptionHandler != null){
@@ -141,7 +150,7 @@ public class OomCrashHandler implements Thread.UncaughtExceptionHandler {
     }
 
     public static void registerExceptionHandler(Context context) {
-        OomCrashHandler handler = new OomCrashHandler(context.getPackageName(), android.os.Process.myPid());
+        CrashHandler handler = new CrashHandler(context.getPackageName(), android.os.Process.myPid());
         Thread.setDefaultUncaughtExceptionHandler(handler);
     }
 }
