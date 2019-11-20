@@ -35,6 +35,12 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         this.mDumpingHprof = false;
     }
 
+
+    public static void registerExceptionHandler(Context context) {
+        CrashHandler handler = new CrashHandler(context.getPackageName(), android.os.Process.myPid());
+        Thread.setDefaultUncaughtExceptionHandler(handler);
+    }
+
     public void uncaughtException(Thread thread, Throwable throwable) {
         // 处理 OOM 日志问题
         if(throwable instanceof OutOfMemoryError && !mDumpingHprof) {
@@ -56,6 +62,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             mDefaultUncaughtExceptionHandler.uncaughtException(thread, throwable);
         } else {
             Process.killProcess(Process.myPid());
+            //System.exit(0);
         }
     }
 
@@ -149,8 +156,4 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         return true;
     }
 
-    public static void registerExceptionHandler(Context context) {
-        CrashHandler handler = new CrashHandler(context.getPackageName(), android.os.Process.myPid());
-        Thread.setDefaultUncaughtExceptionHandler(handler);
-    }
 }

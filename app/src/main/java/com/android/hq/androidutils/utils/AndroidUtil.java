@@ -12,6 +12,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.Build;
+import android.os.Process;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -25,6 +26,7 @@ import java.util.List;
  * 获取应用的权限信息：包括权限列表，及其所在的权限分组等
  * 获取AIDL进程间调用的调用方包名
  * 获取ContentProvider调用的调用方包名
+ * 验证跨进程调用方的前面和本应用前面是否一致，可以用来做权限限制等
  */
 
 public class AndroidUtil {
@@ -122,5 +124,11 @@ public class AndroidUtil {
 
     public static String getCallingPackage4Provider(ContentProvider provider){
         return provider.getCallingPackage();
+    }
+
+    public static boolean verifyBinderCallingSignature(Context context) {
+        int uid = Binder.getCallingUid();
+        PackageManager pm = context.getPackageManager();
+        return pm.checkSignatures(uid, Process.myUid()) == PackageManager.SIGNATURE_MATCH;
     }
 }
