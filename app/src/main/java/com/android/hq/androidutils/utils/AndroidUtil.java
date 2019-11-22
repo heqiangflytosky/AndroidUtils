@@ -130,5 +130,6 @@ public class AndroidUtil {
         int uid = Binder.getCallingUid();
         PackageManager pm = context.getPackageManager();
         return pm.checkSignatures(uid, Process.myUid()) == PackageManager.SIGNATURE_MATCH;
+        // 还可以根据包名来验证 pm.checkSignatures(pkg1, pkg2) == PackageManager.SIGNATURE_MATCH;
     }
 }

@@ -9,10 +9,13 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Process;
 import android.util.Log;
 
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by heqiang on 17-2-6.
@@ -23,6 +26,7 @@ import java.util.List;
  * 获取系统已经安装应用信息
  * 通过Intent启动Activity
  * 通过url启动Activity
+ * 获取当前进程的名字
  */
 
 public class AppUtil {
@@ -163,5 +167,23 @@ public class AppUtil {
                 return false;
             }
         }
+    }
+
+    public static String getCurrentProcessName() {
+        String path = String.format(Locale.US, "/proc/%d/cmdline", Process.myPid());
+        try {
+            String process = FileUtil.readFileAsString(path);
+            if (process != null) {
+                // Remove zero char at the tail of process
+                int length = process.indexOf(0);
+                if (length >= 0) {
+                    process = process.substring(0, length);
+                }
+                return process;
+            }
+        } catch (IOException e) {
+            Log.e("Test", "Fail to read cmdline: " + path, e);
+        }
+        return null;
     }
 }

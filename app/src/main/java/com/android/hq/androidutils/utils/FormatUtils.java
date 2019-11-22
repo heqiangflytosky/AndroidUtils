@@ -140,4 +140,22 @@ public class FormatUtils {
 
         return new BytesResult(roundedString, units, roundedBytes);
     }
+
+    public static String formatFileSize(long size) {
+        float value = size;
+        String unit = "B";
+        if (value > 1024) {
+            value /= 1024;
+            unit = "KB";
+        }
+        if (value > 1024) {
+            value /= 1024;
+            unit = "MB";
+        }
+        if (value > 1024) {
+            value /= 1024;
+            unit = "GB";
+        }
+        return String.format(Locale.getDefault(), "%.2f %s", value, unit);
+    }
 }
