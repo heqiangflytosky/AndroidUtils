@@ -23,18 +23,34 @@ import android.support.annotation.VisibleForTesting;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Global executor pools for the whole application.
  * 提供后台线程以及主线程的执行接口
  */
 public class AppExecutors {
+    private static final int DEFAULT_CORE_THREAD_COUNT = 5;
+    private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
+    private static final int CORE_POOL_SIZE = Math.min(DEFAULT_CORE_THREAD_COUNT, CPU_COUNT / 2);
+    private static final int MAX_POOL_SIZE_IO = 256;
+    private static final int MAX_POOL_SIZE_COMPUTATION = CPU_COUNT * 2 + 1;
 
-    private static final int THREAD_COUNT = 3;
+    private static final String THREAD_NAME_IO = "[io]-";
+    private static final String THREAD_NAME_COMPUTATION = "[computation]-";
 
-    private static final Executor diskIO = Executors.newSingleThreadExecutor();
+    private static final long KEEP_ALIVE_TIME = 30000L;
 
-    private static final Executor networkIO = Executors.newFixedThreadPool(THREAD_COUNT);
+    private static final Executor diskIO = new ThreadPoolExecutor(CORE_POOL_SIZE,MAX_POOL_SIZE_IO,
+            KEEP_ALIVE_TIME, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(),
+            new DefaultThreadFactory(THREAD_NAME_IO));
+
+    private static final Executor computation = new ThreadPoolExecutor(CORE_POOL_SIZE,MAX_POOL_SIZE_COMPUTATION,
+            KEEP_ALIVE_TIME, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(),
+            new DefaultThreadFactory(THREAD_NAME_COMPUTATION));
 
     private static final Executor mainThread = new MainThreadExecutor();
 
@@ -42,8 +58,8 @@ public class AppExecutors {
         return diskIO;
     }
 
-    public static Executor networkIO() {
-        return networkIO;
+    public static Executor computation() {
+        return computation;
     }
 
     public static Executor mainThread() {
@@ -56,6 +72,24 @@ public class AppExecutors {
         @Override
         public void execute(@NonNull Runnable command) {
             mainThreadHandler.post(command);
+        }
+    }
+
+    private static class DefaultThreadFactory implements ThreadFactory {
+        private final String namePrefix;
+
+        DefaultThreadFactory(@NonNull String prefix) {
+            namePrefix = prefix;
+        }
+
+        @Override
+        public Thread newThread(@NonNull Runnable r) {
+            Thread t = new Thread(r);
+            t.setName(namePrefix + t.getId());
+            if (t.isDaemon()) {
+                t.setDaemon(false);
+            }
+            return t;
         }
     }
 }

@@ -41,6 +41,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         Thread.setDefaultUncaughtExceptionHandler(handler);
     }
 
+    @Override
     public void uncaughtException(Thread thread, Throwable throwable) {
         // 处理 OOM 日志问题
         if(throwable instanceof OutOfMemoryError && !mDumpingHprof) {
