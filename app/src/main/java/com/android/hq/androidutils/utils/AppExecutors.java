@@ -24,6 +24,7 @@ import android.support.annotation.VisibleForTesting;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -44,13 +45,31 @@ public class AppExecutors {
 
     private static final long KEEP_ALIVE_TIME = 30000L;
 
+    private static final WorkQueue<Runnable> mIoWorkQueue = new WorkQueue<>();
+
+    private static final RejectedExecutionHandler mIoRejectedPolicy = new RejectedExecutionHandler() {
+        @Override
+        public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
+            mIoWorkQueue.superOffer(r);
+        }
+    };
+
+    private static final WorkQueue<Runnable> mComputationWorkQueue = new WorkQueue<>();
+
+    private static final RejectedExecutionHandler mComputationRejectedPolicy = new RejectedExecutionHandler() {
+        @Override
+        public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
+            mComputationWorkQueue.superOffer(r);
+        }
+    };
+
     private static final Executor diskIO = new ThreadPoolExecutor(CORE_POOL_SIZE,MAX_POOL_SIZE_IO,
-            KEEP_ALIVE_TIME, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(),
-            new DefaultThreadFactory(THREAD_NAME_IO));
+            KEEP_ALIVE_TIME, TimeUnit.MILLISECONDS, mIoWorkQueue,
+            new DefaultThreadFactory(THREAD_NAME_IO), mIoRejectedPolicy);
 
     private static final Executor computation = new ThreadPoolExecutor(CORE_POOL_SIZE,MAX_POOL_SIZE_COMPUTATION,
-            KEEP_ALIVE_TIME, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(),
-            new DefaultThreadFactory(THREAD_NAME_COMPUTATION));
+            KEEP_ALIVE_TIME, TimeUnit.MILLISECONDS, mComputationWorkQueue,
+            new DefaultThreadFactory(THREAD_NAME_COMPUTATION), mComputationRejectedPolicy);
 
     private static final Executor mainThread = new MainThreadExecutor();
 
@@ -90,6 +109,17 @@ public class AppExecutors {
                 t.setDaemon(false);
             }
             return t;
+        }
+    }
+
+    private static class WorkQueue<E> extends LinkedBlockingQueue<E> {
+        @Override
+        public boolean offer(E e) {
+            return false;
+        }
+
+        public void superOffer(E e) {
+            super.offer(e);
         }
     }
 }
