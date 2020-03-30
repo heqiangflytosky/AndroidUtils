@@ -119,3 +119,7 @@
 
  - 判断是否在主线程
  - 在主线程运行方法
+
+## AbstractTask
+
+ - 类似 AsyncTask，配合在线程池中使用的 Task
