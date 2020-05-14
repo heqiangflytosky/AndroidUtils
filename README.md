@@ -46,6 +46,7 @@
 ## DeviceUtil
 
  - 判断设备是否支持闪光灯
+ - 获取设备屏幕宽高
 
 ## FileUtil
 
