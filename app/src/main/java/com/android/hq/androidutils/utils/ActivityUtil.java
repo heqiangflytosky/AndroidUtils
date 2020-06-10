@@ -34,26 +34,20 @@ import java.lang.reflect.Method;
 
 public class ActivityUtil {
 
-    private static Activity mActivity;
     public static final double SMALL_WIN_H_SCALE = 0.66796875;
     public static final double SMALL_WIN_W_SCALE = 0.71875;
 
-    public static void init(Activity activity){
-        mActivity = activity;
-    }
-
-    @SuppressWarnings("all")
-    public static void lockScreenOrientation() {
-        mActivity.setRequestedOrientation(mapConfigurationOriActivityInfoOri(mActivity.getResources()
+    public static void lockScreenOrientation(Activity activity) {
+        activity.setRequestedOrientation(mapConfigurationOriActivityInfoOri(activity, activity.getResources()
                 .getConfiguration().orientation));
     }
 
-    public static void unlockScreenOrientation(){
-        mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+    public static void unlockScreenOrientation(Activity activity){
+        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
     }
 
-    private static int mapConfigurationOriActivityInfoOri(int configOri) {
-        final Display d = mActivity.getWindowManager().getDefaultDisplay();
+    private static int mapConfigurationOriActivityInfoOri(Activity activity, int configOri) {
+        final Display d = activity.getWindowManager().getDefaultDisplay();
         int naturalOri = Configuration.ORIENTATION_LANDSCAPE;
         switch (d.getRotation()) {
             case Surface.ROTATION_0:
@@ -84,8 +78,8 @@ public class ActivityUtil {
         return oriMap[(d.getRotation() + indexOffset) % 4];
     }
 
-    public static void showStatusBar(boolean show){
-        Window window = mActivity.getWindow();
+    public static void showStatusBar(Activity activity, boolean show){
+        Window window = activity.getWindow();
         if (null != window) {
             WindowManager.LayoutParams winParams = window.getAttributes();
             final int bits = WindowManager.LayoutParams.FLAG_FULLSCREEN;
