@@ -1,5 +1,6 @@
 package com.android.hq.androidutils.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
@@ -68,7 +69,7 @@ public class DeviceUtil {
      * @param context
      * @return 设备屏幕的高度
      */
-    public static int getDisplayHeight2(Context context) {
+    public static int getScreenHeight(Context context) {
         //1.
         /*
         Point point = new Point();
@@ -82,6 +83,17 @@ public class DeviceUtil {
         WindowManager windowManager = (WindowManager) context.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
         windowManager.getDefaultDisplay().getRealMetrics(outMetrics);
         return outMetrics.heightPixels;
+    }
+
+    /**
+     *
+     * @param activity
+     * @return View 布局区域高度
+     */
+    public static int getContentHeight(Activity activity) {
+        Rect rectangle = new Rect();
+        activity.getWindow().findViewById(Window.ID_ANDROID_CONTENT).getDrawingRect(rectangle);
+        return rectangle.height();
     }
 
     @RequiresApi(Build.VERSION_CODES.P)

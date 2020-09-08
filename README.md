@@ -1,5 +1,7 @@
-# AndroidUtils
+
 实现一些Java和Android中常用的工具类
+
+# Utils
 
 ## AESUtil
  - Java实现AES加密
@@ -46,7 +48,12 @@
 ## DeviceUtil
 
  - 判断设备是否支持闪光灯
+ - 获取屏幕可显示区域宽高
  - 获取设备屏幕宽高
+ - 获取应用可绘制区域高度
+ - 判断是否是异形屏
+ - 获取异形屏区域高度
+ - 适配异形屏
 
 ## FileUtil
 
@@ -80,12 +87,6 @@
 
 ## BackgroundHandler
 执行后台任务的线程池和Handler
-
-## SizeObserverLinearLayout
-布局大小变化监听器，可以用作根布局来监听键盘弹起等导致的大小变化
-
-## NoScrollViewPager
-可以禁止左右滑动的ViewPager
 
 ## AppExecutors
 提供后台线程以及主线程的执行接口
@@ -124,3 +125,16 @@
 ## AbstractTask
 
  - 类似 AsyncTask，配合在线程池中使用的 Task
+
+## ToastUtils
+
+避免 Android 7.X 及以下版本的 BadTokenException 问题
+
+# Views
+
+## SizeObserverLinearLayout
+布局大小变化监听器，可以用作根布局来监听键盘弹起等导致的大小变化
+
+## NoScrollViewPager
+可以禁止左右滑动的ViewPager
+
