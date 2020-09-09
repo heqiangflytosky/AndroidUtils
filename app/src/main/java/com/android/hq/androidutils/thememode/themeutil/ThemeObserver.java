@@ -1,6 +1,6 @@
 package com.android.hq.androidutils.thememode.themeutil;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.android.hq.androidutils.thememode.themeview.IThemeView;
 

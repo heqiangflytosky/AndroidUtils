@@ -1,6 +1,6 @@
 package com.android.hq.androidutils.views.banner;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.android.hq.androidutils.R;

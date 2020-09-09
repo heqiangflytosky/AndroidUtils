@@ -2,8 +2,8 @@ package com.android.hq.androidutils.utils;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.text.BidiFormatter;
 import android.text.TextUtils;
 import android.view.View;

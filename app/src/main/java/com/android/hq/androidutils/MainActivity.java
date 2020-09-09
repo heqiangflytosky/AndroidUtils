@@ -2,14 +2,13 @@ package com.android.hq.androidutils;
 
 import android.content.Intent;
 import android.os.Binder;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.android.hq.androidutils.thememode.ThemeModeActivity;
 import com.android.hq.androidutils.utils.ActivityUtil;
 import com.android.hq.androidutils.utils.AndroidUtil;
 import com.android.hq.androidutils.views.banner.BannerActivity;

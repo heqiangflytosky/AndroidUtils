@@ -4,9 +4,8 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.support.v7.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatButton;
 import android.util.AttributeSet;
-import android.widget.Button;
 
 import com.android.hq.androidutils.R;
 import com.android.hq.androidutils.thememode.themeutil.ThemeHelper;
@@ -27,7 +26,7 @@ public class ThemeButton extends AppCompatButton implements IThemeView{
     }
 
     public ThemeButton(Context context, AttributeSet attrs) {
-        this(context, attrs, android.support.v7.appcompat.R.attr.buttonStyle);
+        this(context, attrs, androidx.appcompat.R.attr.buttonStyle);
     }
 
     public ThemeButton(Context context, AttributeSet attrs, int defStyleAttr) {

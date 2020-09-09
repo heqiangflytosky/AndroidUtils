@@ -2,8 +2,8 @@ package com.android.hq.androidutils.utils;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.UiThread;
-import android.support.annotation.WorkerThread;
+import androidx.annotation.UiThread;
+import androidx.annotation.WorkerThread;
 
 /**
  *
