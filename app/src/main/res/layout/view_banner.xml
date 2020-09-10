@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.android.hq.androidutils.views.banner.BannerViewPager
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </com.android.hq.androidutils.views.banner.BannerViewPager>
+    </androidx.viewpager2.widget.ViewPager2>
     <LinearLayout
         android:id="@+id/indicator"
         android:layout_width="wrap_content"
