@@ -138,3 +138,6 @@
 ## NoScrollViewPager
 可以禁止左右滑动的ViewPager
 
+## BannerView
+轮播组件
+
