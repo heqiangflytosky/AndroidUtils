@@ -43,6 +43,8 @@ public class BannerView extends FrameLayout implements Handler.Callback{
     private int mAttrSelectIndicatorColor;
     private int mAttrIndicatorSize;
     private int mAttrIndicatorLayoutGravity;
+    private int mAttrPages;
+    private int mAttrPageAnimation;
 
     private static final int MSG_AUTO_PLAY = 1;
     private long mInterval = 2 * 1000;
@@ -56,6 +58,17 @@ public class BannerView extends FrameLayout implements Handler.Callback{
         LEFT,
         CENTER,
         RIGHT
+    }
+
+    public enum Pages{
+        ONE,
+        TWO,
+        THREE
+    }
+
+    public enum PageAnimation{
+        NORMAL,
+        SCALE
     }
 
     public BannerView(Context context) {
@@ -142,8 +155,22 @@ public class BannerView extends FrameLayout implements Handler.Callback{
     }
 
     private void initViewPager() {
+        RecyclerView recyclerView = (RecyclerView) mViewPager.getChildAt(0);
         //去掉底部回弹效果
-        mViewPager.getChildAt(0).setOverScrollMode(OVER_SCROLL_NEVER);
+        recyclerView.setOverScrollMode(OVER_SCROLL_NEVER);
+        if (mAttrPages == Pages.TWO.ordinal()) {
+            recyclerView.setPadding(0, mViewPager.getPaddingTop(), 200, mViewPager.getPaddingBottom());
+            recyclerView.setClipToPadding(false);
+        } else if (mAttrPages == Pages.THREE.ordinal()) {
+            recyclerView.setPadding(100, mViewPager.getPaddingTop(), 100, mViewPager.getPaddingBottom());
+            recyclerView.setClipToPadding(false);
+        }
+
+        //mViewPager.setClipToPadding(false);
+
+        if (mAttrPageAnimation == PageAnimation.SCALE.ordinal()) {
+            mViewPager.setPageTransformer(new Transformer.ScaleTransformer());
+        }
 
         mViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -176,6 +203,8 @@ public class BannerView extends FrameLayout implements Handler.Callback{
         mAttrSelectIndicatorColor = typedArray.getColor(R.styleable.BannerView_indicator_selected_color, 0xff33b4ff);
         mAttrIndicatorSize = typedArray.getDimensionPixelSize(R.styleable.BannerView_indicator_size,10);
         mAttrIndicatorLayoutGravity = typedArray.getInt(R.styleable.BannerView_indicator_layout_gravity, IndicatorLayoutGravity.CENTER.ordinal());
+        mAttrPages = typedArray.getInt(R.styleable.BannerView_pages, Pages.ONE.ordinal());
+        mAttrPageAnimation = typedArray.getInt(R.styleable.BannerView_page_animation,PageAnimation.NORMAL.ordinal());
 
         typedArray.recycle();
     }

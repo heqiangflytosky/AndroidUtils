@@ -10,12 +10,14 @@
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@color/black_20"
+        android:layout_marginTop="10dp"
         app:indicator_layout_gravity="right"
         app:indicator_selected_color="#ff0000"
         app:auto_play="true"
         app:indicator_size="5dp"
-        app:indicator="true">
+        app:indicator="true"
+        app:pages="three"
+        app:page_animation="scale">
     </com.android.hq.androidutils.views.banner.BannerView>
 
 </LinearLayout>

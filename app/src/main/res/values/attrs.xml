@@ -23,6 +23,15 @@
             <enum name="center" value="1"/>
             <enum name="right" value="2"/>
         </attr>
+        <attr name="pages" format="enum">
+            <enum name="one" value="0"/>
+            <enum name="two" value="1"/>
+            <enum name="three" value="2"/>
+        </attr>
+        <attr name="page_animation" format="enum">
+            <enum name="normal" value="0"/>
+            <enum name="scale" value="1"/>
+        </attr>
     </declare-styleable>
 
 </resources>
