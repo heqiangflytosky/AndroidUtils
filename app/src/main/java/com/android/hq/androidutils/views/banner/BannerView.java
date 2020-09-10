@@ -125,13 +125,14 @@ public class BannerView extends FrameLayout implements Handler.Callback{
     public boolean handleMessage(Message msg) {
         if (mAttrAutoPlay && msg.what == MSG_AUTO_PLAY) {
             int next = mViewPager.getCurrentItem()+1;
-            boolean smooth = true;
-            if (mViewPager.getAdapter().getItemCount() == next) {
-                next = 0;
-                smooth = false;
+            // 处理自动播放时的循环
+            if (next == mAdapter.getRealCount() + mAdapter.getExtraPageCount()/2 + 1) {
+                mViewPager.setCurrentItem(mAdapter.getExtraPageCount()/2,false);
+                mHandler.sendEmptyMessage(MSG_AUTO_PLAY);
+            } else {
+                mViewPager.setCurrentItem(next);
+                mHandler.sendEmptyMessageDelayed(MSG_AUTO_PLAY, mInterval);
             }
-            mViewPager.setCurrentItem(next,smooth);
-            mHandler.sendEmptyMessageDelayed(MSG_AUTO_PLAY, mInterval);
             return true;
         }
         return false;
@@ -139,8 +140,12 @@ public class BannerView extends FrameLayout implements Handler.Callback{
 
     public void setData(SparseArray list) {
         mAdapter = new BannerAdapter(mAttrIsLoop, list);
+        if (mAttrPages == Pages.TWO.ordinal() || mAttrPages == Pages.THREE.ordinal()) {
+            mAdapter.setExtraPageCount(4);
+        }
         mViewPager.setAdapter(mAdapter);
         setIndicator();
+        mViewPager.setCurrentItem(mAdapter.getExtraPageCount()/2, false);
     }
 
     private void init(Context context) {
@@ -187,6 +192,14 @@ public class BannerView extends FrameLayout implements Handler.Callback{
             @Override
             public void onPageScrollStateChanged(int state) {
                 super.onPageScrollStateChanged(state);
+                // 处理手势滑动时的循环
+                if (state == ViewPager2.SCROLL_STATE_DRAGGING) {
+                    if (mViewPager.getCurrentItem() == mAdapter.getExtraPageCount()/2 - 1) {
+                        mViewPager.setCurrentItem(mAdapter.getRealCount() + mAdapter.getExtraPageCount()/2, false);
+                    } else if (mViewPager.getCurrentItem() == mAdapter.getRealCount() + mAdapter.getExtraPageCount()/2) {
+                        mViewPager.setCurrentItem(mAdapter.getExtraPageCount()/2, false);
+                    }
+                }
             }
         });
 
@@ -249,9 +262,10 @@ public class BannerView extends FrameLayout implements Handler.Callback{
     }
 
     private void setSelectedIndicator(int current) {
+        int real = mAdapter.convertRealPosition(current);
         for (int i = 0; i < mIndicatorLayout.getChildCount(); i++) {
             IndicatorPoint point = (IndicatorPoint) mIndicatorLayout.getChildAt(i);
-            if (i == current) {
+            if (i == real) {
                 point.setSelected(true);
             } else {
                 point.setSelected(false);

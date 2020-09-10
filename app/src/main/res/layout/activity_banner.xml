@@ -7,9 +7,33 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <com.android.hq.androidutils.views.banner.BannerView
-        android:id="@+id/banner"
+        android:id="@+id/banner1"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="10dp"
+        app:auto_play="true"
+        app:indicator_size="5dp"
+        app:indicator="true">
+    </com.android.hq.androidutils.views.banner.BannerView>
+
+    <com.android.hq.androidutils.views.banner.BannerView
+        android:id="@+id/banner2"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginTop="10dp"
+        app:indicator_layout_gravity="left"
+        app:indicator_selected_color="#ff0000"
+        app:auto_play="true"
+        app:indicator_size="5dp"
+        app:indicator="true"
+        app:pages="two"
+        app:page_animation="scale">
+    </com.android.hq.androidutils.views.banner.BannerView>
+
+    <com.android.hq.androidutils.views.banner.BannerView
+        android:id="@+id/banner3"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
         android:layout_marginTop="10dp"
         app:indicator_layout_gravity="right"
         app:indicator_selected_color="#ff0000"
