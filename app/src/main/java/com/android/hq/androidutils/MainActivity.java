@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         mWebView.setWebChromeClient(new WebChromeClient());
         mWebView.loadUrl("https://github.com/heqiangflytosky/AndroidUtils/");
 
-        //startTest();
+        startTest();
     }
 
     private void startTest() {

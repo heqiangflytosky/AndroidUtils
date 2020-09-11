@@ -5,16 +5,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.net.Uri;
 import android.util.SparseArray;
+import android.view.View;
 import android.view.ViewGroup;
 
 public class BannerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private SparseArray mDataList;
+    private OnItemClickListener mOnItemClickListener;
     private boolean mIsLoop;
     private int mExtrasCount = 2;
 
-    public BannerAdapter (boolean isLoop, SparseArray dataList) {
+    public BannerAdapter (boolean isLoop) {
         mIsLoop = isLoop;
-        mDataList = dataList;
     }
 
     public int getRealCount() {
@@ -28,7 +29,15 @@ public class BannerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnItemClickListener != null) {
+                    mOnItemClickListener.onItemClick(v, convertRealPosition(position));
+                }
+            }
+        });
         if (holder instanceof ViewHolder.SimPleViewHolder) {
             int realPosition = convertRealPosition(position);
             ((ViewHolder.SimPleViewHolder) holder).textView.setText("这是第"+realPosition+"个");
@@ -49,6 +58,15 @@ public class BannerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public int getItemCount() {
         return mIsLoop ? getRealCount() + mExtrasCount: getRealCount();
+    }
+
+    public void setData(SparseArray data) {
+        mDataList = data;
+        notifyDataSetChanged();
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mOnItemClickListener = listener;
     }
 
     public boolean shouldLoop() {

@@ -3,6 +3,8 @@ package com.android.hq.androidutils.views.banner;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.SparseArray;
+import android.view.View;
+import android.widget.Toast;
 
 import com.android.hq.androidutils.R;
 
@@ -24,12 +26,30 @@ public class BannerActivity extends AppCompatActivity {
 
         BannerView bannerView1 = findViewById(R.id.banner1);
         bannerView1.setData(list);
+        bannerView1.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                Toast.makeText(BannerActivity.this, "position = "+position, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         BannerView bannerView2 = findViewById(R.id.banner2);
         bannerView2.setData(list);
+        bannerView2.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                Toast.makeText(BannerActivity.this, "position = "+position, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         BannerView bannerView3 = findViewById(R.id.banner3);
         bannerView3.setData(list);
+        bannerView3.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                Toast.makeText(BannerActivity.this, "position = "+position, Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 }

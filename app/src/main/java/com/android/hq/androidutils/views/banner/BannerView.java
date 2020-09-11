@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -33,6 +34,8 @@ import java.lang.reflect.Field;
  * https://blog.csdn.net/utomi/article/details/104287989   https://github.com/zguop/banner
  *
  * @author heqiang
+ *
+ * 使用当前的左右添加2个page的方案会导致  onPageSelected 方法多次调用的问题。
  */
 
 public class BannerView extends FrameLayout implements Handler.Callback{
@@ -139,13 +142,16 @@ public class BannerView extends FrameLayout implements Handler.Callback{
     }
 
     public void setData(SparseArray list) {
-        mAdapter = new BannerAdapter(mAttrIsLoop, list);
+        mAdapter.setData(list);
         if (mAttrPages == Pages.TWO.ordinal() || mAttrPages == Pages.THREE.ordinal()) {
             mAdapter.setExtraPageCount(4);
         }
-        mViewPager.setAdapter(mAdapter);
         setIndicator();
         mViewPager.setCurrentItem(mAdapter.getExtraPageCount()/2, false);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mAdapter.setOnItemClickListener(listener);
     }
 
     private void init(Context context) {
@@ -153,6 +159,9 @@ public class BannerView extends FrameLayout implements Handler.Callback{
         View view = LayoutInflater.from(context).inflate(R.layout.view_banner, this, true);
         mViewPager = view.findViewById(R.id.view_pager);
         mIndicatorLayout = view.findViewById(R.id.indicator);
+
+        mAdapter = new BannerAdapter(mAttrIsLoop);
+        mViewPager.setAdapter(mAdapter);
 
         initViewPager();
 
