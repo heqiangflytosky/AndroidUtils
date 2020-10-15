@@ -110,6 +110,7 @@ public class BannerView extends FrameLayout implements Handler.Callback{
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
+        Log.e("Test"," ev "+ev.getAction());
         if (mAttrAutoPlay) {
             switch (ev.getAction()) {
                 case MotionEvent.ACTION_DOWN:
@@ -117,6 +118,7 @@ public class BannerView extends FrameLayout implements Handler.Callback{
                     stopAutoPlay();
                     break;
                 case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
                     startAutoPlay();
                     break;
             }

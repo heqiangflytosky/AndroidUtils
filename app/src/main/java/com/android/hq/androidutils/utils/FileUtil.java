@@ -107,6 +107,19 @@ public class FileUtil {
 		return file.delete();
 	}
 
+	public static void createFile(File target) {
+		if (!target.exists()) {
+			try {
+				File fileParent = target.getParentFile();
+				if(!fileParent.exists()) {
+					fileParent.mkdirs();
+				}
+				target.createNewFile();
+			} catch (IOException e) {
+				Log.e(TAG,"create file error",e);
+			}
+		}
+	}
 
 	/**
 	 * Copy data from a source stream to destFile
