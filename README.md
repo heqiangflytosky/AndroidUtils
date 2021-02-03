@@ -127,8 +127,12 @@
  - 类似 AsyncTask，配合在线程池中使用的 Task
 
 ## ToastUtils
-
 避免 Android 7.X 及以下版本的 BadTokenException 问题
+
+## ViewUtil
+
+ - 按比例缩放View
+ - 按比例缩放，保持宽高的最大值和原来相同
 
 # Views
 

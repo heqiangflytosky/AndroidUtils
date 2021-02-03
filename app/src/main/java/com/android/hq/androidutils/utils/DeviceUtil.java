@@ -21,6 +21,8 @@ import java.util.List;
  *
  * 设备是否支持闪光灯
  * 获取设备屏幕宽高
+ * 获取布局区域高度
+ * 异形屏适配
  */
 
 public class DeviceUtil {
@@ -95,6 +97,12 @@ public class DeviceUtil {
         return rectangle.height();
     }
 
+    /**
+     * 判断是否是异形屏
+     * @param context
+     * @param window
+     * @return
+     */
     @RequiresApi(Build.VERSION_CODES.P)
     public static boolean isCutoutScreen(@NonNull Context context, @NonNull Window window) {
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
@@ -140,6 +148,12 @@ public class DeviceUtil {
         }
     }
 
+    /**
+     * 获取异形屏区域高度
+     * @param context
+     * @param window
+     * @return
+     */
     @RequiresApi(Build.VERSION_CODES.P)
     public static int getCutoutHeight(@NonNull Context context, @NonNull Window window) {
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
@@ -159,7 +173,11 @@ public class DeviceUtil {
         }
     }
 
-    // 全屏模式下填充异形屏的区域
+    /**
+     * 全屏模式下填充异形屏的区域
+     * @param context
+     * @param window
+     */
     @RequiresApi(Build.VERSION_CODES.P)
     public static void adapterCutoutScreen(@NonNull Context context, @NonNull Window window) {
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
