@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:layout_marginTop="10dp"
+        app:indicator_layout_gravity="right"
         app:auto_play="true"
         app:indicator_size="5dp"
         app:indicator="true">
@@ -35,7 +36,6 @@
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:layout_marginTop="10dp"
-        app:indicator_layout_gravity="right"
         app:indicator_selected_color="#ff0000"
         app:auto_play="true"
         app:indicator_size="5dp"
