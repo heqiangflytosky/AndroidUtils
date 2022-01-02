@@ -116,6 +116,7 @@
 ## FormatUtils
 
  - 字节数据格式化，转换为 KB，M，G等
+ - 判断是否是手机号码
 
 ## ThreadUtils
 

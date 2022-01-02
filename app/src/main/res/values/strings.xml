@@ -8,4 +8,12 @@
     <string name="terabyteShort">TB</string>
     <string name="petabyteShort">PB</string>
     <string name="fileSizeSuffix"><xliff:g id="NUMBER">%1$s</xliff:g> <xliff:g id="UNIT">%2$s</xliff:g></string>
+
+    <string name="title_common_test">测试</string>
+    <string name="des_common_test">测试一些接口</string>
+
+    <string name="title_banner">BannerView</string>
+    <string name="des_banner">BannerView 演示</string>
+    <string name="title_seek_bar">SeekBar</string>
+    <string name="des_seek_bar">演示SeekBar的用法以及定制</string>
 </resources>

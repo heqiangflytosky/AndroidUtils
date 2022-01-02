@@ -3,8 +3,13 @@ package com.android.hq.androidutils;
 import android.content.Intent;
 import android.os.Binder;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -12,32 +17,59 @@ import android.webkit.WebViewClient;
 import com.android.hq.androidutils.utils.ActivityUtil;
 import com.android.hq.androidutils.utils.AndroidUtil;
 import com.android.hq.androidutils.views.banner.BannerActivity;
+import com.android.hq.androidutils.views.seekbar.SeekBarActivity;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private WebView mWebView;
+    private RecyclerView mRecyclerView;
+    private ListAdapter mListAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mWebView = (WebView) findViewById(R.id.webview);
+        mRecyclerView = (RecyclerView) findViewById(R.id.id_recyclerview);
+        mListAdapter = new ListAdapter(this);
+        mRecyclerView.setAdapter(mListAdapter);
 
-        mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.setWebViewClient(new WebViewClient());
-        mWebView.setWebChromeClient(new WebChromeClient());
-        mWebView.loadUrl("https://github.com/heqiangflytosky/AndroidUtils/");
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        startTest();
+        setData();
     }
 
-    private void startTest() {
-        Log.e("Test", "Calling package = "+ActivityUtil.getCallingPackage(this));
-        Log.e("Test", "Calling package 2= "+getCallingPackage());
-        Log.e("Test", "Calling package 3= "+ Binder.getCallingUid());
-        Log.e("Test", "Calling package 4= "+ getPackageManager().getNameForUid(Binder.getCallingUid()));
-        AndroidUtil.getPermissionInfo(this);
-        
-        Intent intent = new Intent(this, BannerActivity.class);
-        startActivity(intent);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        //getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void setData(){
+        ArrayList<ListAdapter.DataBean> list = new ArrayList<>();
+        list.add(new ListAdapter.DataBean(getResources().getString(R.string.title_common_test),
+                getResources().getString(R.string.des_common_test), CommonTestActivity.class));
+        list.add(new ListAdapter.DataBean(getResources().getString(R.string.title_banner),
+                getResources().getString(R.string.des_banner), BannerActivity.class));
+        list.add(new ListAdapter.DataBean(getResources().getString(R.string.title_seek_bar),
+                getResources().getString(R.string.des_seek_bar), SeekBarActivity.class));
+
+        mListAdapter.updateData(list);
     }
 }
