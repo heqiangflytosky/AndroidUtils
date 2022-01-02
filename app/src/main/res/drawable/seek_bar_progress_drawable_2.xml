@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2020 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<!--<layer-list xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--            android:paddingMode="stack" >-->
+<!--    &lt;!&ndash;定义seekbar滑动条的底色&ndash;&gt;-->
+<!--    <item android:id="@android:id/background"-->
+<!--        android:gravity="center_vertical|fill_horizontal">-->
+<!--        <inset-->
+<!--            android:insetLeft="22dp"-->
+<!--            android:insetRight="22dp" >-->
+<!--            <shape>-->
+<!--                <size android:height="4dp" />-->
+<!--                <corners android:radius="2dp" />-->
+<!--                <solid android:color="#f0f2f2" />-->
+<!--            </shape>-->
+<!--        </inset>-->
+<!--    </item>-->
+<!--    &lt;!&ndash;定义seekbar滑动条进度颜色&ndash;&gt;-->
+<!--    <item android:id="@android:id/progress"-->
+<!--          android:gravity="center_vertical|fill_horizontal">-->
+<!--            <com.example.heqiang.testsomething.views.seekbar.RoundedCornerProgressDrawable-->
+<!--                android:drawable="@drawable/brightness_progress_full_drawable"-->
+<!--            />-->
+<!--    </item>-->
+<!--</layer-list>-->
+
+<!--<selector xmlns:android="http://schemas.android.com/apk/res/android">-->
+<!--    <item  android:state_pressed="false">-->
+<!--        <scale android:scaleHeight="1"/>-->
+<!--        <shape>-->
+<!--            <solid android:color="#88f0f2f2" />-->
+<!--        </shape>-->
+<!--    </item>-->
+<!--    <item  android:state_pressed="true">-->
+<!--        <scale android:scaleHeight="2"/>-->
+<!--        <shape>-->
+<!--            <solid android:color="#fff0f2f2" />-->
+<!--        </shape>-->
+<!--    </item>-->
+<!--</selector>-->
+
+
+<!--<selector xmlns:android="http://schemas.android.com/apk/res/android">-->
+<!--    <item android:state_pressed="true">-->
+<!--        <set>-->
+<!--            <objectAnimator-->
+<!--                android:propertyName="scaleY"-->
+<!--                android:duration="5"-->
+<!--                android:valueTo="2.0f"-->
+<!--                android:valueType="floatType"/>-->
+<!--        </set>-->
+<!--    </item>-->
+<!--    <item android:state_pressed="false">-->
+<!--        <set>-->
+<!--            <objectAnimator-->
+<!--                android:propertyName="scaleY"-->
+<!--                android:duration="5"-->
+<!--                android:valueTo="1.0f"-->
+<!--                android:valueType="floatType"/>-->
+<!--        </set>-->
+<!--    </item>-->
+<!--</selector>-->
+
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item android:id="@android:id/background">
+        <shape>
+            <size android:height="4dp" />
+            <solid android:color="#C9CAC5" />
+            <corners android:radius="10dip"/>
+        </shape>
+    </item>
+    <item android:id="@android:id/secondaryProgress">
+        <scale android:scaleWidth="100%">
+            <shape>
+                <size android:height="4dp" />
+                <corners android:radius="10dip"/>
+                <solid android:color="#C9CAC5" />
+            </shape>
+        </scale>
+    </item>
+    <item android:id="@android:id/progress">
+        <scale android:scaleWidth="100%">
+            <shape>
+                <size android:height="4dp" />
+                <corners android:radius="10dip"/>
+                <solid android:color="@color/colorAccent" />
+            </shape>
+        </scale>
+    </item>
+</layer-list>
