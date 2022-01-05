@@ -15,7 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:progress="50"
-        android:minHeight="48dp"
         android:thumb="@null"
         android:progressDrawable="@drawable/seek_bar_progress_drawable"
         android:duplicateParentState="true"
@@ -33,12 +32,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:progress="50"
-        android:minHeight="48dp"
+        android:maxHeight="2dp"
         android:thumb="@drawable/seek_bar_thumb"
         android:progressDrawable="@drawable/seek_bar_progress_drawable_2"
         android:thumbOffset="0dp"
         android:splitTrack="false"
         />
 <!--    android:duplicateParentState="true" 上面不能用这个，否则thumb按压效果不生效-->
+    <SeekBar
+        android:id="@+id/seek_bar_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:progress="50"
+        android:maxHeight="4dp"
+        android:thumb="@drawable/seek_bar_thumb"
+        android:progressDrawable="@drawable/seek_bar_progress_drawable_2"
+        android:thumbOffset="0dp"
+        android:splitTrack="false"
+        />
 
 </LinearLayout>
