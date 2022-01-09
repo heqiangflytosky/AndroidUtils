@@ -7,10 +7,18 @@
     android:orientation="vertical"
     android:padding="20dp"
     tools:context=".views.seekbar.SeekBarActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="原生进度条"/>
     <SeekBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:progress="50"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="定制进度条设置duplicateParentState，使用clip"/>
     <SeekBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,6 +27,10 @@
         android:progressDrawable="@drawable/seek_bar_progress_drawable"
         android:duplicateParentState="true"
         />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="定制进度条，设置duplicateParentState，使用scale"/>
     <SeekBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,17 +40,25 @@
         android:progressDrawable="@drawable/seek_bar_progress_drawable_2"
         android:duplicateParentState="true"
         />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="定制进度条和thumb，设置duplicateParentState，使用scale"/>
     <SeekBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:progress="50"
-        android:maxHeight="2dp"
+        android:maxHeight="10dp"
         android:thumb="@drawable/seek_bar_thumb"
         android:progressDrawable="@drawable/seek_bar_progress_drawable_2"
         android:thumbOffset="0dp"
         android:splitTrack="false"
         />
 <!--    android:duplicateParentState="true" 上面不能用这个，否则thumb按压效果不生效-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="使用Drawable Bounds 代码实现进度条按压放大"/>
     <SeekBar
         android:id="@+id/seek_bar_1"
         android:layout_width="match_parent"
@@ -50,6 +70,10 @@
         android:thumbOffset="0dp"
         android:splitTrack="false"
         />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="使用Drawable资源实现进度条按压放大"/>
     <SeekBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
