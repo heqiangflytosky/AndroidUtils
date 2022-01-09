@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--    https://stackoverflow.com/questions/38767193/android-switch-track-height-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingMode="stack" >
+    <item
+        android:gravity="center_vertical|fill_horizontal">
+        <inset
+            android:insetLeft="0dp"
+            android:insetTop="5dp"
+            android:insetBottom="5dp"
+            android:insetRight="0dp" >
+            <shape>
+                <size android:height="2dp" />
+                <corners android:radius="2dp" />
+                <solid android:color="#B6D6FE" />
+            </shape>
+        </inset>
+    </item>
+
+</layer-list>

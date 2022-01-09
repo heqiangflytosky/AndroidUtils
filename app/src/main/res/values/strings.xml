@@ -16,4 +16,6 @@
     <string name="des_banner">BannerView 演示</string>
     <string name="title_seek_bar">SeekBar</string>
     <string name="des_seek_bar">演示SeekBar的用法以及定制</string>
+    <string name="title_switch">Switch</string>
+    <string name="des_switch">演示Switch的用法以及定制</string>
 </resources>
