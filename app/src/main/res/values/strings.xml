@@ -18,4 +18,6 @@
     <string name="des_seek_bar">演示SeekBar的用法以及定制</string>
     <string name="title_switch">Switch</string>
     <string name="des_switch">演示Switch的用法以及定制</string>
+    <string name="title_circle_viewpager">圆形ViewPager</string>
+    <string name="des_circle_viewpager">演示圆形ViewPager</string>
 </resources>

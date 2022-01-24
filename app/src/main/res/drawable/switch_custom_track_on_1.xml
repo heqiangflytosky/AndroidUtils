@@ -6,8 +6,8 @@
         android:gravity="center_vertical|fill_horizontal">
         <inset
             android:insetLeft="0dp"
-            android:insetTop="5dp"
-            android:insetBottom="5dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
             android:insetRight="0dp" >
             <shape>
                 <size android:height="2dp" />

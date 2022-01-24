@@ -17,6 +17,7 @@ import android.webkit.WebViewClient;
 import com.android.hq.androidutils.utils.ActivityUtil;
 import com.android.hq.androidutils.utils.AndroidUtil;
 import com.android.hq.androidutils.views.banner.BannerActivity;
+import com.android.hq.androidutils.views.circleviewpager.CircleViewPagerActivity;
 import com.android.hq.androidutils.views.seekbar.SeekBarActivity;
 import com.android.hq.androidutils.views.switchview.SwitchActivity;
 
@@ -72,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
                 getResources().getString(R.string.des_seek_bar), SeekBarActivity.class));
         list.add(new ListAdapter.DataBean(getResources().getString(R.string.title_switch),
                 getResources().getString(R.string.des_switch), SwitchActivity.class));
+        list.add(new ListAdapter.DataBean(getResources().getString(R.string.title_circle_viewpager),
+                getResources().getString(R.string.des_circle_viewpager), CircleViewPagerActivity.class));
 
         mListAdapter.updateData(list);
     }
