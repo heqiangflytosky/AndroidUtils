@@ -18,7 +18,7 @@ import com.android.hq.androidutils.R;
 
 import java.util.ArrayList;
 
-class CircleViewPager extends LinearLayout {
+public class CircleViewPager extends LinearLayout {
     private Path mPath = new Path();
     private ViewPager2 mViewPager;
     private ViewPagerAdapter mAdapter;

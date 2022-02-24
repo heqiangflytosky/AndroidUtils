@@ -180,6 +180,11 @@ public class ActivityUtil {
         return null;
     }
 
+    /**
+     * 判断是否是从任务管理器启动
+     * @param activity
+     * @return
+     */
     public static boolean isStartedFromRecentsTask(Activity activity) {
         return (activity.getIntent().getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY)
                 == Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY;

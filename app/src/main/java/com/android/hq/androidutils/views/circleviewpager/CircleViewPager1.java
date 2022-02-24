@@ -18,7 +18,7 @@ import com.android.hq.androidutils.R;
 import java.util.ArrayList;
 import java.util.List;
 
-class CircleViewPager1 extends ViewPager {
+public class CircleViewPager1 extends ViewPager {
     private List<View> mPagers = new ArrayList<>();
     private int mTotalOffset;
     private Path mPath = new Path();

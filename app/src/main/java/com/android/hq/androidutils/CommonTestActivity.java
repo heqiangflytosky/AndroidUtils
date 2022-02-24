@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.hq.androidutils.utils.ActivityUtil;
 import com.android.hq.androidutils.utils.AndroidUtil;
+import com.android.hq.androidutils.utils.MathUtils;
 import com.android.hq.androidutils.views.banner.BannerActivity;
 
 public class CommonTestActivity extends AppCompatActivity {
@@ -36,5 +37,7 @@ public class CommonTestActivity extends AppCompatActivity {
         Log.e("Test", "Calling package 3= "+ Binder.getCallingUid());
         Log.e("Test", "Calling package 4= "+ getPackageManager().getNameForUid(Binder.getCallingUid()));
         AndroidUtil.getPermissionInfo(this);
+
+        MathUtils.formatFloat();
     }
 }
