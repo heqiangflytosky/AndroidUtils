@@ -1,6 +1,8 @@
 package com.android.hq.androidutils.utils;
 
 import android.content.Context;
+import android.graphics.Rect;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -65,5 +67,14 @@ public class ViewUtil {
         layoutParams.width = w;
         layoutParams.height = h;
         view.setLayoutParams(layoutParams);
+    }
+
+    public static boolean isTouchInView(View view, MotionEvent ev) {
+        int[] temp = new int[2];
+        view.getLocationOnScreen(temp);
+        final int x = temp[0];
+        final int y = temp[1];
+        Rect rect = new Rect(x, y, x + view.getWidth(),y + view.getHeight());
+        return rect.contains((int)ev.getRawX(),(int)ev.getRawY());
     }
 }
